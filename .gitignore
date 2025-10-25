@@ -1,0 +1,84 @@
+# ==========================
+# General
+# ==========================
+*.log
+*.env
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+__pycache__/
+*.py[cod]
+*.so
+*.swp
+*.swo
+.vscode/
+.idea/
+*.bak
+*.tmp
+*.orig
+*.lock
+
+# ==========================
+# Python / FastAPI backend
+# ==========================
+venv/
+.venv/
+pip-wheel-metadata/
+__pypackages__/
+build/
+dist/
+.eggs/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+celerybeat-schedule
+instance/
+*.db
+alembic/versions/*.pyc
+*.sqlite3
+
+# ==========================
+# Node / Frontend
+# ==========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next/
+out/
+coverage/
+dist/
+.cache/
+build/
+.eslintcache
+*.tsbuildinfo
+
+# ==========================
+# Docker / Infra
+# ==========================
+docker-compose.override.yml
+**/dbdata/
+**/volumes/
+**/tmp/
+**/logs/
+*.pid
+
+# ==========================
+# Editor / OS
+# ==========================
+*.iml
+*.sublime-project
+*.sublime-workspace
+*.kate-swp
+*~
+.project
+.settings/
+.spyproject/
+.history/
+.nfs*

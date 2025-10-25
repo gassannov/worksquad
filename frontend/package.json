@@ -1,0 +1,7 @@
+{
+    "name": "worksquad-frontend",
+    "private": true,
+    "scripts": {
+        "build": "echo \"(placeholder) create vite app later\" && mkdir -p dist && echo '<h1>WorkSquad Frontend</h1>' > dist/index.html"
+    }
+}

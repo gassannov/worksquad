@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: worksquad-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+    #   - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: worksquad-frontend
+    expose:
+      - "80"              # internal port for nginx to reach
+    restart: unless-stopped
+
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: worksquad-backend
+  #   expose:
+  #     - "8000"
+  #   environment:
+  #     - UVICORN_HOST=0.0.0.0
+  #     - UVICORN_PORT=8000
+  #   restart: unless-stopped
