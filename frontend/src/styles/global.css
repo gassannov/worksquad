@@ -1,0 +1,156 @@
+/* Lock manual scroll everywhere */
+/* html, body { height: 100%; overflow: hidden; } */
+/* Make the first screen really black (optional if you already have it) */
+.section--black { background: #000; color: #fff; }
+
+/* ===== Fullscreen hero container ===== */
+.hero.hero--fullscreen {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* ===== Circular stage =====
+   - 100vmin => the circle always fits entirely in view
+   - border-radius: 50% => perfect circle
+   - background-image => your PNG, scaled cleanly with no extra margin
+*/
+.stage {
+  width: 100vmin;       /* full-screen diameter (fits the short side) */
+  height: 100vmin;
+  max-width: 100svh;    /* guard on some mobile browsers */
+  max-height: 100svh;
+  border-radius: 50%;
+  position: relative;
+  overflow: visible;    /* ring can render right at the edge */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain; /* the PNG fits exactly inside, no cropping */
+}
+
+/* ===== Ring overlay ===== */
+.stage__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* start at 12 o’clock */
+}
+
+/* ---- Ring visuals & controls ---- */
+:root {
+  /* CONTROL THICKNESS HERE (in SVG units; 100 units = diameter) */
+  --ring-thickness: 1;        /* try 1.5 (thinner) or 3 (thicker) */
+  --ring-fade: rgba(255,255,255,0.18);
+  --ring-color: #fff;
+}
+
+/* Progress ring that fills once in 10s, starting at the top */
+.ring-progress {
+  fill: none;
+  stroke: var(--ring-color);
+  stroke-width: var(--ring-thickness);
+  stroke-linecap: round;
+
+  /* Make progress independent of radius by using pathLength=100 */
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ws-fill 5s linear 1 forwards;  /* change '1' to 'infinite' to loop */
+}
+
+@keyframes ws-fill {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Section: black background, white text */
+/* ===== Links Section (White, Bold, Full Width) ===== */
+.links-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #000; /* black background */
+  color: #fff;      /* make all text white */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Each row equal height */
+.link-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;       /* no underline */
+  color: inherit;
+  border: none;                /* remove separators */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Remove underline on hover/focus too */
+.link-row:hover,
+.link-row:focus,
+.link-row:active {
+  text-decoration: none;
+  background: none;
+  color: #fff;
+  cursor: default;
+}
+
+/* Text fill section */
+.fittext-wrap {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(2rem, 14vh, 12rem); /* adjust vertical fit */
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff; /* white text */
+  user-select: none;
+}
+
+/* Scaled text */
+.fittext-text {
+  display: inline-block;
+  white-space: nowrap;
+  transform-origin: center;
+  color: inherit; /* inherit white */
+}
+
+
+/* ===== /ludka page ===== */
+.ludka {
+  background: #fff;          /* blank white screen */
+  min-height: 100svh;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;          /* no scroll */
+}
+
+.ludka-img {
+  max-width: 90vmin;         /* scale to shorter side */
+  max-height: 90vmin;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  image-rendering: auto;
+  transition: transform 180ms ease-out, opacity 180ms ease-out;
+}
+
+/* optional: add a tiny rumble while spinning */
+.ludka-img--spinning {
+  animation: ludka-rattle 240ms ease-in-out infinite;
+}
+
+@keyframes ludka-rattle {
+  0%   { transform: translateY(-2px) }
+  50%  { transform: translateY( 2px) }
+  100% { transform: translateY(-2px) }
+}
